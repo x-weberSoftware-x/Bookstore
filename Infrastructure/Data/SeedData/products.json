@@ -1,0 +1,182 @@
+[
+  {
+    "Name": "Shadows Over Whitestone",
+    "Description": "Secrets buried in a sleepy town awaken deadly consequences.",
+    "Author": "Jane Doe",
+    "Genre": "Thriller",
+    "Price": 14.99,
+    "PictureUrl": "images/book1.jpg",
+    "QuantityInStock": 32
+  },
+  {
+    "Name": "Embers of Valeria",
+    "Description": "A forbidden spell threatens to bring war to the magical realm of Valeria.",
+    "Author": "Tim Gilbert",
+    "Genre": "Fantasy",
+    "Price": 16.50,
+    "PictureUrl": "images/book2.jpg",
+    "QuantityInStock": 27
+  },
+  {
+    "Name": "Letters from the East",
+    "Description": "An emotional journey through letters exchanged during World War II.",
+    "Author": "John Smith",
+    "Genre": "Historical Fiction",
+    "Price": 13.25,
+    "PictureUrl": "images/book3.jpg",
+    "QuantityInStock": 40
+  },
+  {
+    "Name": "Falling for Florence",
+    "Description": "An art historian rediscovers love in the heart of Italy.",
+    "Author": "Ruby Gold",
+    "Genre": "Romance",
+    "Price": 11.99,
+    "PictureUrl": "images/book4.jpg",
+    "QuantityInStock": 50
+  },
+  {
+    "Name": "The Dragon's Pact",
+    "Description": "A young mage must tame a rogue dragon to save her kingdom.",
+    "Author": "Tim Gilbert",
+    "Genre": "Fantasy",
+    "Price": 17.99,
+    "PictureUrl": "images/book5.jpg",
+    "QuantityInStock": 29
+  },
+  {
+    "Name": "The Coldest Trail",
+    "Description": "An FBI profiler hunts a serial killer hiding in plain sight.",
+    "Author": "Jane Doe",
+    "Genre": "Thriller",
+    "Price": 15.75,
+    "PictureUrl": "images/book6.jpg",
+    "QuantityInStock": 24
+  },
+  {
+    "Name": "Beneath the Olive Tree",
+    "Description": "A young Greek girl comes of age during the resistance in WWII.",
+    "Author": "John Smith",
+    "Genre": "Historical Fiction",
+    "Price": 14.00,
+    "PictureUrl": "images/book7.jpg",
+    "QuantityInStock": 34
+  },
+  {
+    "Name": "The Alchemist's Widow",
+    "Description": "Dark alchemy and betrayal plague a city on the brink of ruin.",
+    "Author": "Tim Gilbert",
+    "Genre": "Fantasy",
+    "Price": 16.20,
+    "PictureUrl": "images/book8.jpg",
+    "QuantityInStock": 18
+  },
+  {
+    "Name": "Crossing the Seine",
+    "Description": "Two strangers fall in love on the eve of the Nazi occupation of Paris.",
+    "Author": "Ruby Gold",
+    "Genre": "Romance",
+    "Price": 12.99,
+    "PictureUrl": "images/book9.jpg",
+    "QuantityInStock": 38
+  },
+  {
+    "Name": "Echoes in the Fog",
+    "Description": "A detective's only clue is a whispered name in a foggy city.",
+    "Author": "Jane Doe",
+    "Genre": "Thriller",
+    "Price": 15.25,
+    "PictureUrl": "images/book10.jpg",
+    "QuantityInStock": 20
+  },
+  {
+    "Name": "Winds of the Highlands",
+    "Description": "Clan loyalty is tested during the Jacobite uprising in Scotland.",
+    "Author": "John Smith",
+    "Genre": "Historical Fiction",
+    "Price": 13.75,
+    "PictureUrl": "images/book11.jpg",
+    "QuantityInStock": 41
+  },
+  {
+    "Name": "The Crystal Thorn",
+    "Description": "In a land ruled by ice and fire, a young thief steals more than gold.",
+    "Author": "Tim Gilbert",
+    "Genre": "Fantasy",
+    "Price": 17.50,
+    "PictureUrl": "images/book12.jpg",
+    "QuantityInStock": 31
+  },
+  {
+    "Name": "An Heir to Her Heart",
+    "Description": "A reclusive heir and a spirited governess find love in unexpected places.",
+    "Author": "Ruby Gold",
+    "Genre": "Romance",
+    "Price": 12.25,
+    "PictureUrl": "images/book13.jpg",
+    "QuantityInStock": 36
+  },
+  {
+    "Name": "The Night Caller",
+    "Description": "A chilling voice on the phone reopens a decades‑old murder case.",
+    "Author": "Jane Doe",
+    "Genre": "Thriller",
+    "Price": 14.50,
+    "PictureUrl": "images/book14.jpg",
+    "QuantityInStock": 26
+  },
+  {
+    "Name": "The Lantern Watch",
+    "Description": "A war nurse uncovers the truth about her family's past in post‑war London.",
+    "Author": "John Smith",
+    "Genre": "Historical Fiction",
+    "Price": 14.10,
+    "PictureUrl": "images/book15.jpg",
+    "QuantityInStock": 39
+  },
+  {
+    "Name": "Moonlight and Marigolds",
+    "Description": "Two souls find each other through loss, gardens, and poetry.",
+    "Author": "Ruby Gold",
+    "Genre": "Romance",
+    "Price": 11.50,
+    "PictureUrl": "images/book16.jpg",
+    "QuantityInStock": 42
+  },
+  {
+    "Name": "The Infernal Spiral",
+    "Description": "A ritualistic murder leads to ancient cults and modern terror.",
+    "Author": "Jane Doe",
+    "Genre": "Thriller",
+    "Price": 15.99,
+    "PictureUrl": "images/book17.jpg",
+    "QuantityInStock": 21
+  },
+  {
+    "Name": "The Crownless King",
+    "Description": "Exiled royalty fights to reclaim a throne lost to treachery.",
+    "Author": "Tim Gilbert",
+    "Genre": "Fantasy",
+    "Price": 18.25,
+    "PictureUrl": "images/book18.jpg",
+    "QuantityInStock": 25
+  },
+  {
+    "Name": "Banners Over Vienna",
+    "Description": "A violinist finds her voice during the Nazi occupation of Austria.",
+    "Author": "John Smith",
+    "Genre": "Historical Fiction",
+    "Price": 13.90,
+    "PictureUrl": "images/book19.jpg",
+    "QuantityInStock": 30
+  },
+  {
+    "Name": "A Rose in the Rain",
+    "Description": "Love blossoms in the most unexpected storm.",
+    "Author": "Ruby Gold",
+    "Genre": "Romance",
+    "Price": 12.75,
+    "PictureUrl": "images/book20.jpg",
+    "QuantityInStock": 45
+  }
+]

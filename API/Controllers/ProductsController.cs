@@ -1,6 +1,8 @@
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
@@ -9,20 +11,20 @@ namespace API.Controllers;
 [ApiController]
 //says to use the name of the controller minus the word 'Controller' so in this case 'Products'
 [Route("api/[controller]")]
-public class ProductsController(StoreContext context) : ControllerBase
+public class ProductsController(IProductRepository repo) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    public async Task<ActionResult<IEnumerable<Product>>> GetProducts(string? author, string? genre, string? sort)
     {
         //return a list of the products
-        return await context.Products.ToListAsync();
+        return Ok(await repo.GetProductsAsync(author, genre, sort));
     }
 
     [HttpGet("{id:int}")] //api/products/id
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
         //get the product by the id
-        var product = await context.Products.FindAsync(id);
+        var product = await repo.GetProductByIdAsync(id);
 
         //product is null so return notfound error (404)
         if (product == null) return NotFound();
@@ -34,11 +36,14 @@ public class ProductsController(StoreContext context) : ControllerBase
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
         //add product
-        context.Products.Add(product);
-        //tell EF to track this new product
-        await context.SaveChangesAsync();
+        repo.AddProduct(product);
+        
+        if (await repo.SaveChangesAsync())
+        {
+            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+        }
 
-        return product;
+        return BadRequest("Problem creating product");
     }
 
     [HttpPut("{id:int}")]
@@ -47,33 +52,48 @@ public class ProductsController(StoreContext context) : ControllerBase
         //make sure the id mathches and that the product exists
         if (product.Id != id || !ProductExists(id)) return BadRequest("Cannmot update this product");
 
-        //tell EF that this is a product that has been modified so it knows to track it
-        context.Entry(product).State = EntityState.Modified;
+        repo.UpdateProduct(product);
 
-        //tell EF to track the product
-        await context.SaveChangesAsync();
+        if (await repo.SaveChangesAsync())
+        {
+            return NoContent();
+        }
 
-        //since this is an update we dont return anything so return NoContent
-        return NoContent();
+        return BadRequest("Problem updating product");
     }
 
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteProduct(int id)
     {
-        var product = await context.Products.FindAsync(id);
+        var product = await repo.GetProductByIdAsync(id);
 
         if (product == null) return NotFound();
 
-        context.Products.Remove(product);
+        repo.DeleteProduct(product);
 
-        await context.SaveChangesAsync();
+        if (await repo.SaveChangesAsync())
+        {
+            return NoContent();
+        }
 
-        return NoContent();
+        return BadRequest("Problem deleting product");
+    }
+
+    [HttpGet("authors")] // api/products/authors
+    public async Task<ActionResult<IReadOnlyList<string>>> GetAuthors()
+    {
+        return Ok(await repo.GetAuthorsAsync());
+    }
+
+    [HttpGet("genres")] // api/products/genres
+    public async Task<ActionResult<IReadOnlyList<string>>> GetGenres()
+    {
+        return Ok(await repo.GetGenresAsync());
     }
 
     private bool ProductExists(int id)
     {
         //will return true or false depending on if product with this id exists in db
-        return context.Products.Any(x => x.Id == id);
+        return repo.ProductExists(id);
     }
 }
