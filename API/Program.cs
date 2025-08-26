@@ -15,6 +15,9 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 //need to specify the interface before the implementation class since i'm using the repository pattern
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
+//since we dont know the type that will be used we use the type of with <> after the repository and implementation names
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 var app = builder.Build();
 
 // MIDDLEWARE //

@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,20 +12,28 @@ namespace API.Controllers;
 [ApiController]
 //says to use the name of the controller minus the word 'Controller' so in this case 'Products'
 [Route("api/[controller]")]
-public class ProductsController(IProductRepository repo) : ControllerBase
+//use the generic repository but give it a type of product since this is the products controller
+public class ProductsController(IGenericRepository<Product> repo) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts(string? author, string? genre, string? sort)
     {
-        //return a list of the products
-        return Ok(await repo.GetProductsAsync(author, genre, sort));
+        //use our specification for filtering, sorting, etc
+        
+        //first create an instance of our product specification and pass in the author and genre so it filters by author and genre if they are passed in the GET
+        var spec = new ProductSpecification(author, genre, sort);
+        //then use our repo to get a list of products based on the query(spec) created above
+        var products = await repo.ListAsync(spec);
+
+        //return the list of the products
+        return Ok(products);
     }
 
     [HttpGet("{id:int}")] //api/products/id
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
         //get the product by the id
-        var product = await repo.GetProductByIdAsync(id);
+        var product = await repo.GetByIdAsync(id);
 
         //product is null so return notfound error (404)
         if (product == null) return NotFound();
@@ -36,9 +45,9 @@ public class ProductsController(IProductRepository repo) : ControllerBase
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
         //add product
-        repo.AddProduct(product);
+        repo.Add(product);
         
-        if (await repo.SaveChangesAsync())
+        if (await repo.SaveAllAsync())
         {
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
@@ -52,9 +61,9 @@ public class ProductsController(IProductRepository repo) : ControllerBase
         //make sure the id mathches and that the product exists
         if (product.Id != id || !ProductExists(id)) return BadRequest("Cannmot update this product");
 
-        repo.UpdateProduct(product);
+        repo.Update(product);
 
-        if (await repo.SaveChangesAsync())
+        if (await repo.SaveAllAsync())
         {
             return NoContent();
         }
@@ -65,13 +74,13 @@ public class ProductsController(IProductRepository repo) : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteProduct(int id)
     {
-        var product = await repo.GetProductByIdAsync(id);
+        var product = await repo.GetByIdAsync(id);
 
         if (product == null) return NotFound();
 
-        repo.DeleteProduct(product);
+        repo.Remove(product);
 
-        if (await repo.SaveChangesAsync())
+        if (await repo.SaveAllAsync())
         {
             return NoContent();
         }
@@ -81,19 +90,25 @@ public class ProductsController(IProductRepository repo) : ControllerBase
 
     [HttpGet("authors")] // api/products/authors
     public async Task<ActionResult<IReadOnlyList<string>>> GetAuthors()
-    {
-        return Ok(await repo.GetAuthorsAsync());
+    {   
+        //create a new instance of our Author list spec
+        var spec = new AuthorListSpecification();
+        //return a list using the spec so it will return all disinct authors
+        return Ok(await repo.ListAsync(spec));
     }
 
     [HttpGet("genres")] // api/products/genres
     public async Task<ActionResult<IReadOnlyList<string>>> GetGenres()
     {
-        return Ok(await repo.GetGenresAsync());
+        //create a new instance of our Genre list spec
+        var spec = new GenreListSpecification();
+        //return a list using the spec so it will return alldisinct genres
+        return Ok(await repo.ListAsync(spec));
     }
 
     private bool ProductExists(int id)
     {
         //will return true or false depending on if product with this id exists in db
-        return repo.ProductExists(id);
+        return repo.Exists(id);
     }
 }
